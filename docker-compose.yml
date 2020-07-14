@@ -1,16 +1,5 @@
 version: "3.8"
 
-# secrets:
-#   - NGINX_HOST=ghost
-#   - NGINX_PORT=3000
-#   - url=http://localhost
-#   - database__client=mysql
-#   - database__connection__host=db
-#   - database__connection__user=root
-#   - database__connection__password=changeme
-#   - database__connection__database=ghost
-#   - MYSQL_ROOT_PASSWORD=changeme
-
 services:
   proxy:
     image: nginx
@@ -18,10 +7,22 @@ services:
       - ./nginx:/etc/nginx/templates
     ports:
       - "80:3000"
+    environment:
+      - NGINX_HOST=ghost
+      - NGINX_PORT=3000
 
   ghost:
     image: ghost:3-alpine
     restart: always
+    environment:
+      - url=http://localhost
+      - database__client=mysql
+      - database__connection__host=db
+      - database__connection__user=root
+      - database__connection__password=changeme
+      - database__connection__database=ghost
 
   db:
     image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
