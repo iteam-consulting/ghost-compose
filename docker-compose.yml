@@ -14,5 +14,7 @@ services:
   ghost:
     image: ghost:3-alpine
     restart: always
+    volumes:
+      - ./content:/var/lib/ghost/content
     environment:
       - url=http://localhost
